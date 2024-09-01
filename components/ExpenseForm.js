@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ExpenseForm = ({ addExpense, onSuccess }) => {
   const [item, setItem] = useState("");
@@ -22,56 +22,10 @@ const ExpenseForm = ({ addExpense, onSuccess }) => {
     }
   };
 
-  // Inline styles
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    maxWidth: "400px",
-    margin: "0 auto",
-    padding: "1rem",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    backgroundColor: "#f9f9f9",
-    marginBottom: "10px",
-  };
-
-  const formGroupStyle = {
-    marginBottom: "1rem",
-  };
-
-  const labelStyle = {
-    display: "block",
-    marginBottom: "0.5rem",
-    fontWeight: "bold",
-  };
-
-  const inputStyle = {
-    width: "90%",
-    padding: "0.5rem",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    margin: "0 auto",
-  };
-
-  const buttonStyle = {
-    padding: "0.75rem",
-    border: "none",
-    borderRadius: "4px",
-    backgroundColor: "#28a745",
-    color: "white",
-    fontSize: "1rem",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: "#218838",
-  };
-
   return (
-    <form style={formStyle} onSubmit={handleSubmit}>
-      <div style={formGroupStyle}>
-        <label htmlFor="item" style={labelStyle}>
+    <form className="formStyle" onSubmit={handleSubmit}>
+      <div className="formGroupStyle">
+        <label htmlFor="item" className="labelStyle">
           Expense:
         </label>
         <input
@@ -79,12 +33,12 @@ const ExpenseForm = ({ addExpense, onSuccess }) => {
           id="item"
           value={item}
           onChange={(e) => setItem(e.target.value)}
-          style={inputStyle}
+          className="inputStyle"
           placeholder="Enter expense item"
         />
       </div>
-      <div style={formGroupStyle}>
-        <label htmlFor="amount" style={labelStyle}>
+      <div className="formGroupStyle">
+        <label htmlFor="amount" className="labelStyle">
           Amount:
         </label>
         <input
@@ -92,12 +46,12 @@ const ExpenseForm = ({ addExpense, onSuccess }) => {
           id="amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          style={inputStyle}
+          className="inputStyle"
           placeholder="Enter amount"
         />
       </div>
-      <div style={formGroupStyle}>
-        <label htmlFor="date" style={labelStyle}>
+      <div className="formGroupStyle">
+        <label htmlFor="date" className="labelStyle">
           Date:
         </label>
         <input
@@ -105,20 +59,11 @@ const ExpenseForm = ({ addExpense, onSuccess }) => {
           id="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          style={inputStyle}
+          className="inputStyle"
         />
       </div>
 
-      <button
-        type="submit"
-        style={buttonStyle}
-        onMouseOver={(e) =>
-          (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)
-        }
-        onMouseOut={(e) =>
-          (e.target.style.backgroundColor = buttonStyle.backgroundColor)
-        }
-      >
+      <button type="submit" className="buttonStyle">
         Add Expense
       </button>
     </form>
