@@ -1,8 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "PORT=3111 next dev",
+    "dev": "PORT=3112 next dev",
     "build": "next build",
-    "start": "PORT=3111 next start"
+    "start": "PORT=3112 next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "idb":"8.0.0",
   }
 }
