@@ -1,10 +1,13 @@
 import { useState } from "react";
 import ExpenseForm from "./ExpenseForm";
+
 const FloatButton = ({ addExpense }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
+
   const toggleForm = () => {
     setIsFormVisible(!isFormVisible);
   };
+
   const handleSuccess = () => {
     setIsFormVisible(false); // Close the form on successful submission
   };
@@ -14,13 +17,25 @@ const FloatButton = ({ addExpense }) => {
       <div
         className={`overlay ${isFormVisible ? "show" : ""}`}
         onClick={toggleForm}
+        aria-hidden={!isFormVisible}
       ></div>
 
-      <div className="floating-button" onClick={toggleForm}>
+      <button
+        className="floating-button"
+        onClick={toggleForm}
+        aria-label="Add Expense"
+      >
         +
-      </div>
+      </button>
 
       <div className={`form-popup ${isFormVisible ? "show" : ""}`}>
+        <button
+          className="close-button"
+          onClick={toggleForm}
+          aria-label="Close Form"
+        >
+          ×
+        </button>
         <ExpenseForm addExpense={addExpense} onSuccess={handleSuccess} />
       </div>
       <style jsx>{`
@@ -30,9 +45,10 @@ const FloatButton = ({ addExpense }) => {
           right: 20px;
           width: 60px;
           height: 60px;
-          background-color: #28a745; /* #007bff: "#28a745", this to your preferred color */
+          background-color: #28a745;
           color: white;
           border-radius: 50%;
+          border: 2px solid #28a745;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -43,13 +59,18 @@ const FloatButton = ({ addExpense }) => {
           transition: transform 0.3s ease;
         }
 
-      
+        .floating-button:focus {
+          outline: none;
+          transform: scale(1.1);
+          border-color: #218838;
+        }
 
         .form-popup {
           position: fixed;
           bottom: 120px;
           right: 30px;
           width: 80%;
+          max-width: 400px;
           background-color: white;
           border-radius: 8px;
           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
@@ -74,13 +95,29 @@ const FloatButton = ({ addExpense }) => {
           height: 100%;
           background: rgba(0, 0, 0, 0.5);
           z-index: 998;
-          transition: opacity 0.3s ease;
           display: none;
+          opacity: 0;
+          transition: opacity 0.3s ease;
         }
 
         .overlay.show {
           display: block;
           opacity: 1;
+        }
+
+        .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: transparent;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 1001;
+        }
+
+        .close-button:focus {
+          outline: none;
         }
       `}</style>
     </>

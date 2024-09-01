@@ -30,7 +30,7 @@ export default function DateWise({ expenses }) {
     marginBottom: "10px",
     color: "#333",
   };
- if(data.length===0) return null
+  if (data.length === 0) return null;
   return (
     <div style={formStyle}>
       <h2>Datewise Expenses</h2>

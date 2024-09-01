@@ -18,7 +18,7 @@ const ExpenseForm = ({ addExpense, onSuccess }) => {
       setItem("");
       setAmount("");
       setDate("");
-      onSuccess()
+      onSuccess();
     }
   };
 

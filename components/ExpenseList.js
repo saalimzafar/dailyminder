@@ -67,7 +67,7 @@ const ItemList = ({ expenses }) => {
     return catWise;
   };
   let data = dailyExpense(expenses);
-  if(data.length===0) return null
+  if (data.length === 0) return null;
   return (
     <div style={formStyle}>
       <h2>Today's Expenses</h2>

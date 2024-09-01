@@ -39,7 +39,7 @@ const CategoryWise = ({ expenses }) => {
   };
 
   let data = dailyExpenseCategory(expenses);
-  if(data.length===0) return null
+  if (data.length === 0) return null;
   return (
     <div style={formStyle}>
       <h2>Item Wise Expenses</h2>

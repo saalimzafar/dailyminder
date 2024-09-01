@@ -1,71 +1,46 @@
 const dailyTotalAmountFn = (expenses) => {
   const today = new Date().toLocaleDateString();
   return expenses
-    .filter((expense) => expense.date === today)
-    .reduce((acc, expense) => acc + expense.amount, 0);
+    .filter(({ date }) => date === today)
+    .reduce((acc, { amount }) => acc + amount, 0);
 };
 
 const overallTotalAmountFn = (expenses) => {
-  return expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  return expenses.reduce((acc, { amount }) => acc + amount, 0);
 };
 
-
-
-
-let dailyExpenseData = (expenses) => {
-  let duplicateVal = expenses.map((item) => item.date);
-  let uniqueVal = [...new Set(duplicateVal)];
-  const perDay = (day) => {
-    let dailyExpense = expenses.filter((item) => item.date === day);
-    return dailyExpense;
-  };
-  let sum = (total, { amount }) => total + amount;
-  let dailyExpense = [];
-  uniqueVal.map((item) =>
-    dailyExpense.push({ date: item, amount: perDay(item).reduce(sum, 0) })
-  );
-
-  return dailyExpense;
+const dailyExpenseData = (expenses) => {
+  const expenseMap = new Map();
+  
+  expenses.forEach(({ date, amount }) => {
+    expenseMap.set(date, (expenseMap.get(date) || 0) + amount);
+  });
+  
+  return Array.from(expenseMap, ([date, amount]) => ({ date, amount }));
 };
 
-let dailyExpenseCategory = (expenses) => {
-  let category = [...new Set(expenses.map((cat) => cat.item))];
+const dailyExpenseCategory = (expenses) => {
+  const categoryMap = new Map();
 
-  let expense = [];
-  for (let i of category) {
-    expense.push({
-      cat: i,
-      amount: expenses
-        .filter((itm) => itm.item === i)
-        .map((item) => Number(item.amount))
-        .reduceRight((a, c) => a + c, 0),
-    });
-  }
-  return expense;
+  expenses.forEach(({ item, amount }) => {
+    categoryMap.set(item, (categoryMap.get(item) || 0) + Number(amount));
+  });
+
+  return Array.from(categoryMap, ([cat, amount]) => ({ cat, amount }));
 };
 
-let jsonString = (val) => JSON.stringify(val);
+const jsonString = JSON.stringify;
 
-let dateFormat = (date) => {
-  let dt = new Date(date).toDateString();
-  dt = dt.split(" ");
-  return `${dt[2]}-${dt[1]}-${dt[3]}`;
+const dateFormat = (date) => {
+  return new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })
+    .format(new Date(date));
 };
-
-const dateFormatX = (date) => {
-  date = new Date(date)
-  const options = { day: '2-digit', month: 'short', year: '2-digit' };
-  return new Intl.DateTimeFormat('en-GB', options).format(date);
-};
-
-
 
 const exportToJsonFile = (data, filename = "data.json") => {
-  const jsonString = JSON.stringify(data, null, 2);
-  const blob = new Blob([jsonString], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const link = document.createElement("a");
   link.download = filename;
-  link.href = window.URL.createObjectURL(blob);
+  link.href = URL.createObjectURL(blob);
   link.click();
 };
 
