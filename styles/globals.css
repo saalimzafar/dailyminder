@@ -76,3 +76,19 @@
 .two {
   width: 20%;
 }
+
+
+/* install-button.css */
+.install-button {
+  padding: 10px 20px;
+  background-color: #317EFB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.install-button:hover {
+  background-color: #265bb5;
+}

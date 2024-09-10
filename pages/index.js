@@ -7,6 +7,7 @@ import DateWise from "../components/DateWise";
 import CategoryWise from "../components/CategoryWise";
 import FloatButton from "../components/FloatButton";
 import ExportButton from "../components/ExportButton";
+import InstallButton from '../components/InstallButton';
 import { deleteDB } from "idb";
 import {
   dailyTotalAmountFn,
@@ -43,6 +44,24 @@ const Home = () => {
     setOverallTotal(overallTotalAmountFn(expenses));
   }, [expenses]);
 
+ const  checkQuota = () =>  {
+    if ('storage' in navigator && 'estimate' in navigator.storage) {
+      navigator.storage.estimate().then(({usage, quota}) => {
+        const usedInMB = usage / (1024 * 1024);
+        const quotaInMB = quota / (1024 * 1024);
+        const remainingInMB = (quota - usage) / (1024 * 1024);
+        
+        alert(`Used storage: ${usedInMB.toFixed(2)} MB`);
+        alert(`Total quota: ${quotaInMB.toFixed(2)} MB`);
+        alert(`Remaining storage: ${remainingInMB.toFixed(2)} MB`);
+      });
+    } else {
+      alert('Storage estimation API is not supported in this browser.');
+      this.estimateUsage();
+    }
+  }
+ 
+
   const addExpense = async (expense) => {
     await addItem(expense);
     setExpenses([...expenses, expense]);
@@ -67,7 +86,9 @@ const Home = () => {
       <DateWise expenses={expenses} />
       <CategoryWise expenses={expenses} />
       <FloatButton addExpense={addExpense} />
-    </div>
+      <InstallButton/>
+      <button onClick={checkQuota}>Quota</button>
+     </div>
   );
 };
 

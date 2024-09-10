@@ -44,6 +44,29 @@ const exportToJsonFile = (data, filename = "data.json") => {
   link.click();
 };
 
+const requestPersistentStorage = async () => {
+  if ('storageManager' in navigator) {
+    try {
+      const granted = await navigator.storage.persist();
+      console.log('Persistent storage granted:', granted);
+
+      const persisted = await navigator.storage.persisted();
+      console.log('Storage is persistently stored:', persisted);
+
+      return { granted, persisted };
+    } catch (error) {
+      console.error('Failed to handle persistent storage:', error);
+      return { granted: false, persisted: false };
+    }
+  } else {
+    console.warn('StorageManager API is not supported in this browser.');
+    return { granted: false, persisted: false };
+  }
+};
+
+
+
+
 module.exports = {
   dailyTotalAmountFn,
   overallTotalAmountFn,
@@ -52,4 +75,5 @@ module.exports = {
   jsonString,
   dateFormat,
   exportToJsonFile,
+  requestPersistentStorage
 };
