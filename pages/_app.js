@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react";
+//import { Analytics } from "@vercel/analytics/react";
 import "../styles/globals.css";
 import { useEffect } from "react";
 import { requestPersistentStorage } from '../utils';
@@ -37,7 +37,7 @@ useEffect(() => {
   return (
     <>
       <Component {...pageProps} />
-      <Analytics />
+     {/* <Analytics />*/}
     </>
   );
 }

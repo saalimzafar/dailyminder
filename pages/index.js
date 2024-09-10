@@ -8,7 +8,7 @@ import CategoryWise from "../components/CategoryWise";
 import FloatButton from "../components/FloatButton";
 import ExportButton from "../components/ExportButton";
 import InstallButton from '../components/InstallButton';
-import { deleteDB } from "idb";
+//import { deleteDB } from "idb";
 import {
   dailyTotalAmountFn,
   overallTotalAmountFn,
@@ -87,7 +87,6 @@ const Home = () => {
       <CategoryWise expenses={expenses} />
       <FloatButton addExpense={addExpense} />
       <InstallButton/>
-      <button onClick={checkQuota}>Quota</button>
      </div>
   );
 };

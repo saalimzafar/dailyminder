@@ -78,7 +78,12 @@
 }
 
 
-/* install-button.css */
+.install {
+margin: 0 auto;
+max-width:400px;
+
+}
+.installHide {display:none;}
 .install-button {
   padding: 10px 20px;
   background-color: #317EFB;
